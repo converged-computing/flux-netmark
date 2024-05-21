@@ -1,4 +1,4 @@
-# Flux Network
+# Flux Netmark
 
 These are different means to deploy netmark and Flux on the cloud. The netmark code is private, sorry that's out of my control.
 

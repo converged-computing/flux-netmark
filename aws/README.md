@@ -77,3 +77,5 @@ Some things we likely want:
 
 - To decrease the size of the base image
 - To install oras for artifacts
+
+Next: the same on hpc7a
