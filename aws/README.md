@@ -14,14 +14,17 @@ We are basically going to create a VM, twice, for each of hpc6a and hpc7a, at th
 We build the following AMIs:
 
 - `ami-0ce1a562c586219e6` for hpc6a, which has flux, efa 1.32.0, and netmark
-- 
+- `ami-0422fe7cba4fdede0` the same, for hpc7a
+
+For the two, we can guess the efa installer might do something different. We should sanity check this.
 
 ### Deploy with Terraform
 
-Once you have images, we deploy!
+Once you have images, we deploy! Choose either directory.
 
 ```bash
 $ cd tf-hpc6a
+$ cd tf-hpc7a
 ```
 
 And then init and build. Note that this will run `init, fmt, validate` and `build` in one command.
@@ -75,7 +78,5 @@ $ cat /var/log/cloud-init-output.log
 
 Some things we likely want:
 
-- To decrease the size of the base image
-- To install oras for artifacts
-
-Next: the same on hpc7a
+- To decrease the size of the base image for hpc6a (7a is OK, 30)
+- To install oras for artifacts (7a is OK)
