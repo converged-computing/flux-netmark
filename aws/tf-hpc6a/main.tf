@@ -37,6 +37,11 @@ locals {
 # aws ec2 describe-instances --region us-east-1 --filters "Name=tag:selector,Values=flux-selector" | jq .Reservations[].Instances[].NetworkInterfaces[].PrivateIpAddress
 # aws ec2 describe-instances --region us-east-1 --filters "Name=tag:selector,Values=flux-selector" | jq .Reservations[].Instances[].NetworkInterfaces[].PrivateIpAddresses[].PrivateDnsName
 
+# Add our ip address to the ssh config block
+data "http" "address" {
+  url = "https://ipv4.icanhazip.com"
+}
+
 terraform {
   required_providers {
     aws = {
@@ -173,13 +178,13 @@ resource "aws_security_group" "security_group" {
   }
 
   ingress {
-    description = "Allow ssh from everywhere"
+    description = "Allow ssh from deployer computer"
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = local.ip_address_allowed
+    cidr_blocks = ["${chomp(data.http.address.response_body)}/32"]
   }
-
+  
   ingress {
     cidr_blocks = ["0.0.0.0/0"]
     protocol    = "icmp"
