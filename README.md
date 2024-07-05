@@ -4,6 +4,26 @@ These are different means to deploy netmark and Flux on the cloud. The netmark c
 
  - [aws](aws): Deployed on AWS via terraform and a custom AMI.
 
+
+## Details
+
+### hpc7a
+
+```
+provider: efa
+    fabric: efa
+    domain: rdmap36s0-rdm
+    version: 121.0
+    type: FI_EP_RDM
+    protocol: FI_PROTO_EFA
+provider: efa
+    fabric: efa
+    domain: rdmap36s0-dgrm
+    version: 121.0
+    type: FI_EP_DGRAM
+    protocol: FI_PROTO_EFA
+```
+
 ## License
 
 HPCIC DevTools is distributed under the terms of the MIT license.
