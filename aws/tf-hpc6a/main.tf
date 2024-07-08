@@ -6,6 +6,7 @@ locals {
   pwd    = basename(path.cwd)
   region = "us-east-2"
   ami    = "ami-0ce1a562c586219e6"
+  placement = "eks-efa-testing"
 
   instance_type = "hpc6a.48xlarge"
   vpc_cidr      = "10.0.0.0/16"
@@ -248,7 +249,8 @@ resource "aws_iam_policy" "ec2_policy" {
         "ec2:DescribeInstances",
         "ec2:DescribeImages",
         "ec2:DescribeTags",
-        "ec2:DescribeSnapshots"
+        "ec2:DescribeSnapshots",
+        "ec2:DescribeInstanceTopology",
       ],
       "Resource" : "*"
     }]
@@ -325,6 +327,7 @@ resource "aws_autoscaling_group" "autoscaling_group" {
   max_size          = local.min_size
   min_size          = local.max_size
   health_check_type = "EC2"
+  placement_group   = local.placement
 
   # This is 25 hours, lord help me if I'm still running experiments that long...
   health_check_grace_period = 90000
